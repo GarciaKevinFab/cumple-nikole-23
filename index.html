@@ -654,6 +654,109 @@
             50% { transform: scale(1.3); opacity: 0.1; }
         }
 
+        /* ===== FLOATING PHOTO CIRCLES ===== */
+        .photo-bubble {
+            position: absolute;
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            overflow: hidden;
+            pointer-events: none;
+            border: 3px solid rgba(255, 255, 255, 0.7);
+            box-shadow:
+                0 4px 15px rgba(0, 0, 0, 0.15),
+                0 0 20px rgba(232, 67, 147, 0.15);
+            animation: photoBubbleFloat 7s ease-in-out infinite;
+            transform-style: preserve-3d;
+            z-index: 2;
+            opacity: 0.85;
+        }
+
+        .photo-bubble img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes photoBubbleFloat {
+            0%, 100% {
+                transform: translateY(0) rotateZ(0deg) rotateY(0deg) scale(1);
+                opacity: 0.85;
+            }
+            20% {
+                transform: translateY(-18px) rotateZ(5deg) rotateY(15deg) scale(1.05);
+                opacity: 0.9;
+            }
+            40% {
+                transform: translateY(-8px) rotateZ(-3deg) rotateY(-10deg) scale(1);
+            }
+            60% {
+                transform: translateY(-22px) rotateZ(4deg) rotateY(20deg) scale(1.08);
+                opacity: 0.95;
+            }
+            80% {
+                transform: translateY(-5px) rotateZ(-5deg) rotateY(-8deg) scale(1.02);
+            }
+        }
+
+        .photo-bubble:hover {
+            opacity: 1;
+            transform: scale(1.3);
+            z-index: 5;
+            pointer-events: auto;
+        }
+
+        /* Background floating photos (bigger, behind container) */
+        .bg-photo-bubble {
+            position: fixed;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            overflow: hidden;
+            pointer-events: none;
+            border: 3px solid rgba(255, 255, 255, 0.5);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+            animation: bgPhotoFloat 10s ease-in-out infinite;
+            transform-style: preserve-3d;
+            z-index: 0;
+            opacity: 0.5;
+        }
+
+        .bg-photo-bubble img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @keyframes bgPhotoFloat {
+            0%, 100% {
+                transform: translateY(0) translateX(0) rotateZ(0deg) rotateY(0deg) scale(1);
+                opacity: 0.4;
+            }
+            25% {
+                transform: translateY(-30px) translateX(10px) rotateZ(8deg) rotateY(25deg) scale(1.05);
+                opacity: 0.6;
+            }
+            50% {
+                transform: translateY(-15px) translateX(-8px) rotateZ(-5deg) rotateY(-15deg) scale(1.1);
+                opacity: 0.5;
+            }
+            75% {
+                transform: translateY(-25px) translateX(5px) rotateZ(6deg) rotateY(18deg) scale(1.03);
+                opacity: 0.55;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .photo-bubble { width: 42px; height: 42px; border-width: 2px; }
+            .bg-photo-bubble { width: 50px; height: 50px; }
+        }
+
+        @media (max-width: 380px) {
+            .photo-bubble { width: 35px; height: 35px; }
+            .bg-photo-bubble { width: 40px; height: 40px; }
+        }
+
         /* ===== FLOATING CARD SUITS (Song theme) ===== */
         .card-suit {
             position: absolute;
@@ -738,6 +841,16 @@
     <!-- Floating 3D background particles -->
     <div class="bg-particles" id="bgParticles"></div>
 
+    <!-- Background floating photo bubbles -->
+    <div class="bg-photo-bubble" style="top:8%;left:5%;animation-delay:0s;"><img src="img/foto1.jpg" alt=""></div>
+    <div class="bg-photo-bubble" style="top:15%;right:8%;animation-delay:2s;"><img src="img/foto2.jpg" alt=""></div>
+    <div class="bg-photo-bubble" style="bottom:20%;left:8%;animation-delay:4s;"><img src="img/foto3.jpg" alt=""></div>
+    <div class="bg-photo-bubble" style="bottom:10%;right:5%;animation-delay:6s;"><img src="img/foto4.jpg" alt=""></div>
+    <div class="bg-photo-bubble" style="top:50%;left:3%;animation-delay:3s;"><img src="img/foto5.jpg" alt=""></div>
+    <div class="bg-photo-bubble" style="top:35%;right:4%;animation-delay:5s;"><img src="img/foto6.jpg" alt=""></div>
+    <div class="bg-photo-bubble" style="bottom:35%;right:3%;animation-delay:7s;"><img src="img/foto7.jpg" alt=""></div>
+    <div class="bg-photo-bubble" style="top:70%;left:5%;animation-delay:1s;"><img src="img/foto8.jpg" alt=""></div>
+
     <audio id="pumpSound" src="https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-the-sound-pack-tree/tspt_game_sound_inflatable_mallet_hit_squish_002.mp3" preload="auto"></audio>
     <audio id="popSound" src="https://www.zapsplat.com/wp-content/uploads/2015/sound-effects-the-sound-pack-tree/tspt_game_sound_pop_bubble_032.mp3" preload="auto"></audio>
 
@@ -815,6 +928,16 @@
             <div class="result" id="result"></div>
             <button class="restart-btn" id="restartBtn">¡Intentar de Nuevo!</button>
         </div>
+
+        <!-- Floating photo circles inside game -->
+        <div class="photo-bubble" style="top:10%;left:6%;animation-delay:0.5s;"><img src="img/foto1.jpg" alt=""></div>
+        <div class="photo-bubble" style="top:18%;right:5%;animation-delay:2.5s;"><img src="img/foto2.jpg" alt=""></div>
+        <div class="photo-bubble" style="bottom:22%;left:5%;animation-delay:1.5s;"><img src="img/foto3.jpg" alt=""></div>
+        <div class="photo-bubble" style="bottom:35%;right:4%;animation-delay:3.5s;"><img src="img/foto4.jpg" alt=""></div>
+        <div class="photo-bubble" style="top:48%;right:6%;animation-delay:4.5s;"><img src="img/foto5.jpg" alt=""></div>
+        <div class="photo-bubble" style="top:30%;left:4%;animation-delay:5.5s;"><img src="img/foto6.jpg" alt=""></div>
+        <div class="photo-bubble" style="bottom:15%;right:7%;animation-delay:6s;"><img src="img/foto7.jpg" alt=""></div>
+        <div class="photo-bubble" style="top:62%;left:7%;animation-delay:2s;"><img src="img/foto8.jpg" alt=""></div>
 
         <!-- Floating card suits (song theme) -->
         <div class="card-suit" style="top:12%;left:5%;animation-delay:0s;color:#e84393;">♥</div>
