@@ -575,6 +575,85 @@
             border-radius: 10px;
         }
 
+        /* ===== PLAYLIST (multiple songs) ===== */
+        .music-playlist {
+            display: none;
+            width: 90%;
+            max-width: 340px;
+            margin-top: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(15px);
+            border-radius: 16px;
+            padding: 14px 16px;
+            position: relative;
+            z-index: 11;
+            animation: playerSlideUp 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.5s both;
+            border: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .playlist-title {
+            color: #fff;
+            font-size: clamp(0.8rem, 2vw, 1rem);
+            font-family: 'Fredoka One', cursive;
+            text-align: center;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .playlist-title .pl-icon {
+            animation: noteRotate 2s ease-in-out infinite;
+            font-size: 1.3rem;
+        }
+
+        .playlist-track {
+            margin-bottom: 8px;
+        }
+
+        .playlist-track:last-child {
+            margin-bottom: 0;
+        }
+
+        .playlist-track iframe {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        /* ===== FLOATING 3D ART SUPPLIES ===== */
+        .floating-art {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.15;
+            pointer-events: none;
+            animation: artFloat 5s ease-in-out infinite;
+            transform-style: preserve-3d;
+        }
+
+        @keyframes artFloat {
+            0%, 100% { transform: translateY(0) rotateZ(0deg) rotateY(0deg) scale(1); }
+            33% { transform: translateY(-12px) rotateZ(8deg) rotateY(20deg) scale(1.08); }
+            66% { transform: translateY(-20px) rotateZ(-6deg) rotateY(-15deg) scale(1.12); }
+        }
+
+        /* ===== PAINT SPLASH OVERLAY ===== */
+        .paint-splash {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            opacity: 0.06;
+            pointer-events: none;
+            filter: blur(8px);
+            animation: splashPulse 4s ease-in-out infinite;
+        }
+
+        @keyframes splashPulse {
+            0%, 100% { transform: scale(1); opacity: 0.06; }
+            50% { transform: scale(1.3); opacity: 0.1; }
+        }
+
         /* ===== FLOATING CARD SUITS (Song theme) ===== */
         .card-suit {
             position: absolute;
@@ -609,6 +688,7 @@
                 max-height: 55vh;
             }
             .music-player { max-width: 95%; }
+            .music-playlist { max-width: 95%; }
         }
 
         @media (max-width: 380px) {
@@ -648,6 +728,8 @@
             }
             .music-player { max-width: 45%; }
             .music-player iframe { height: 60px; }
+            .music-playlist { max-width: 45%; }
+            .music-playlist iframe { height: 60px; }
         }
     </style>
 </head>
@@ -685,17 +767,19 @@
             <!-- HTML Card replaces carta.png -->
             <div class="birthday-card-html" id="birthdayCard">
                 <div class="card-sparkle"></div>
-                <!-- Decorations: dogs, travel, card suits (song theme) -->
-                <div class="card-decoration" style="top:6%;left:6%;animation-delay:0s;">🐾</div>
-                <div class="card-decoration" style="top:4%;right:8%;animation-delay:0.4s;">✈️</div>
-                <div class="card-decoration" style="bottom:10%;left:4%;animation-delay:0.8s;">🐕</div>
-                <div class="card-decoration" style="bottom:6%;right:6%;animation-delay:1.2s;">🌍</div>
-                <div class="card-decoration" style="top:40%;left:2%;animation-delay:0.6s;">♠️</div>
-                <div class="card-decoration" style="top:35%;right:2%;animation-delay:1s;">♥️</div>
-                <div class="card-decoration" style="top:65%;left:4%;animation-delay:1.4s;">🐶</div>
-                <div class="card-decoration" style="top:60%;right:4%;animation-delay:0.3s;">🗺️</div>
+                <!-- Decorations: dogs, travel, art, music -->
+                <div class="card-decoration" style="top:5%;left:5%;animation-delay:0s;">🐾</div>
+                <div class="card-decoration" style="top:3%;right:7%;animation-delay:0.4s;">🎨</div>
+                <div class="card-decoration" style="bottom:10%;left:3%;animation-delay:0.8s;">🐕</div>
+                <div class="card-decoration" style="bottom:5%;right:5%;animation-delay:1.2s;">🎵</div>
+                <div class="card-decoration" style="top:38%;left:2%;animation-delay:0.6s;">🖌️</div>
+                <div class="card-decoration" style="top:33%;right:2%;animation-delay:1s;">✈️</div>
+                <div class="card-decoration" style="top:62%;left:3%;animation-delay:1.4s;">🎶</div>
+                <div class="card-decoration" style="top:58%;right:3%;animation-delay:0.3s;">🎧</div>
+                <div class="card-decoration" style="top:80%;left:8%;animation-delay:0.9s;">🖼️</div>
+                <div class="card-decoration" style="top:75%;right:7%;animation-delay:1.6s;">🌍</div>
 
-                <div class="card-emoji-top">🎂🐶🥳</div>
+                <div class="card-emoji-top">🎂🎨🎶</div>
                 <div class="card-title">¡Feliz cumpleaños, Nikole!</div>
                 <div class="card-age">23</div>
                 <div class="card-message">
@@ -710,33 +794,47 @@
                     Disfruta muchísimo tu día, brilla como nunca y sigue siendo esa persona
                     tan especial que deja huella en quienes te rodean. 💖
                 </div>
-                <div class="card-footer">🎁🐕✈️🌎🎶</div>
+                <div class="card-footer">🎁🐕🎨✈️🎶</div>
             </div>
 
-            <!-- Music Player: Shape of My Heart - Sting -->
-            <div class="music-player" id="musicPlayer">
-                <div class="music-player-header">
-                    <span class="music-note-icon">🎵</span>
-                    <div class="music-info">
-                        <div class="music-title">Shape of My Heart</div>
-                        <div class="music-artist">Sting</div>
-                    </div>
-                    <span class="music-note-icon">♠️</span>
+            <!-- Playlist: canciones para Nikole -->
+            <div class="music-playlist" id="musicPlayer">
+                <div class="playlist-title">
+                    <span class="pl-icon">🎧</span>
+                    Playlist para Nikole
+                    <span class="pl-icon">🎶</span>
                 </div>
-                <iframe id="spotifyEmbed" style="border-radius:12px" src="https://open.spotify.com/embed/track/2vdId18EePzFhwfp4ryqFq?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                <div class="playlist-track">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2vdId18EePzFhwfp4ryqFq?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
+                <div class="playlist-track">
+                    <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/7tEFQUQHbFQ5PRghXSPScB?utm_source=generator&theme=0" width="100%" height="80" frameBorder="0" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                </div>
             </div>
 
             <div class="result" id="result"></div>
             <button class="restart-btn" id="restartBtn">¡Intentar de Nuevo!</button>
         </div>
 
-        <!-- Floating card suits inside game container (song theme) -->
+        <!-- Floating card suits (song theme) -->
         <div class="card-suit" style="top:12%;left:5%;animation-delay:0s;color:#e84393;">♥</div>
         <div class="card-suit" style="top:25%;right:6%;animation-delay:1.5s;color:#2d3436;">♠</div>
-        <div class="card-suit" style="bottom:18%;left:8%;animation-delay:3s;color:#e74c3c;">♦</div>
-        <div class="card-suit" style="bottom:30%;right:5%;animation-delay:4.5s;color:#2d3436;">♣</div>
-        <div class="card-suit" style="top:50%;left:3%;animation-delay:2s;color:#e84393;">♥</div>
-        <div class="card-suit" style="top:60%;right:4%;animation-delay:3.5s;color:#2d3436;">♠</div>
+        <div class="card-suit" style="bottom:20%;left:8%;animation-delay:3s;color:#e74c3c;">♦</div>
+        <div class="card-suit" style="bottom:32%;right:5%;animation-delay:4.5s;color:#2d3436;">♣</div>
+
+        <!-- Floating 3D art & music elements -->
+        <div class="floating-art" style="top:8%;right:12%;animation-delay:0.5s;">🎨</div>
+        <div class="floating-art" style="top:45%;left:4%;animation-delay:2s;">🖌️</div>
+        <div class="floating-art" style="bottom:25%;right:8%;animation-delay:1s;">🎵</div>
+        <div class="floating-art" style="top:55%;right:3%;animation-delay:3s;">🖼️</div>
+        <div class="floating-art" style="bottom:12%;left:6%;animation-delay:2.5s;">🎧</div>
+        <div class="floating-art" style="top:35%;left:6%;animation-delay:1.5s;">🎶</div>
+
+        <!-- Paint splashes -->
+        <div class="paint-splash" style="top:15%;left:10%;background:#e84393;"></div>
+        <div class="paint-splash" style="top:40%;right:8%;background:#6c5ce7;animation-delay:1.5s;"></div>
+        <div class="paint-splash" style="bottom:20%;left:15%;background:#00cec9;animation-delay:3s;"></div>
+        <div class="paint-splash" style="bottom:35%;right:12%;background:#fdcb6e;animation-delay:2s;"></div>
     </div>
 
     <script>
@@ -765,7 +863,7 @@
             // ===== 3D BACKGROUND PARTICLES =====
             function createBgParticles() {
                 const container = document.getElementById('bgParticles');
-                const emojis = ['✨','🌟','⭐','🐾','🐕','🐶','✈️','🌍','🗺️','♠️','♥️','♦️','♣️','🎈','🎉','💖','🦋','🎂','🧳'];
+                const emojis = ['✨','🌟','🐾','🐶','✈️','🌍','♠️','♥️','🎈','🎉','💖','🦋','🎂','🎨','🖌️','🎵','🎶','🎧','🖼️','🎹'];
                 for (let i = 0; i < 20; i++) {
                     const p = document.createElement('div');
                     p.className = 'particle';
@@ -906,7 +1004,7 @@
 
             // ===== FLOATING EMOJIS ON WIN =====
             function spawnWinEmojis() {
-                const emojis = ['🎉','🥳','🎊','🎂','✨','💖','🎁','🐶','🐾','✈️','🌍','♠️','♥️','🦋','🧳'];
+                const emojis = ['🎉','🥳','🎊','🎂','✨','💖','🎁','🐶','🐾','✈️','🎨','🖌️','🎵','🎶','🦋','♥️','🎧'];
                 const container = gameOverScreen;
                 let count = 0;
                 const interval = setInterval(() => {
